@@ -10,7 +10,7 @@ GetX™ 框架的官方 CLI。
 pub global activate get_cli 
 
 // 安装：我的
-// dart pub global activate -sgit https://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@github.com/anchao-lu/cus_get_cli.git
+// dart pub global activate -sgit https://<ask.me.get.access.token>@github.com/anchao-lu/cus_get_cli.git
 
 // 使用本命令需要设置系统环境变量: [FlutterSDK安装目录]\bin\cache\dart-sdk\bin 和 [FlutterSDK安装目录]\.pub-cache\bin
 flutter pub global activate get_cli
