@@ -30,6 +30,12 @@ void anchaoAddRoute(String nameRoute, String viewDir) {
   var line = "$declareRoute '/${nameRoute.snakeCase}';";
 
   final newPath = line;
+
+  // 新的 path 才需要添加
+  if (!content.contains(newPath)) {
+    anchaoAddPage(nameRoute, viewDir);
+  }
+
   if (!content.contains(newPath)) {
     content = content.appendClassContent('_Paths', line);
   }
@@ -38,11 +44,6 @@ void anchaoAddRoute(String nameRoute, String viewDir) {
   if (!content.contains(newRoute)) {
     content = content.appendClassContent(
         'Routes', "$declareRoute _Paths.${nameRoute.snakeCase.toUpperCase()};");
-  }
-
-  // 新的 path 才需要添加
-  if (!content.contains(newPath)) {
-    anchaoAddPage(nameRoute, viewDir);
   }
 
   LogService.success(

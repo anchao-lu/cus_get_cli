@@ -79,7 +79,7 @@ class CreateAnchaoScreenCommand extends Command {
     // final path = 'lib/screens';
     handleFileCreate(
       name,
-      'screen',
+      'anchao_controller',
       path,
       extraFolder,
       AnchaoControllerSample(
@@ -88,10 +88,11 @@ class CreateAnchaoScreenCommand extends Command {
         overwrite: overwrite,
       ),
       '',
+      'anchao_',
     );
     handleFileCreate(
       name,
-      'screen',
+      'anchao_binding',
       path,
       extraFolder,
       AnchaoBindingSample(
@@ -100,6 +101,7 @@ class CreateAnchaoScreenCommand extends Command {
         overwrite: overwrite,
       ),
       '',
+      'anchao_',
     );
     var viewFile = handleFileCreate(
       name,
