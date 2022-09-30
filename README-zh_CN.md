@@ -6,10 +6,13 @@
 GetX™ 框架的官方 CLI。
 
 ```dart
-// 安装:
+// 安装：官方
 pub global activate get_cli 
-// 使用本命令需要设置系统环境变量: [FlutterSDK安装目录]\bin\cache\dart-sdk\bin 和 [FlutterSDK安装目录]\.pub-cache\bin
 
+// 安装：我的
+// dart pub global activate -sgit https://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@github.com/anchao-lu/cus_get_cli.git
+
+// 使用本命令需要设置系统环境变量: [FlutterSDK安装目录]\bin\cache\dart-sdk\bin 和 [FlutterSDK安装目录]\.pub-cache\bin
 flutter pub global activate get_cli
 
 // 在当前目录创建一个 Flutter 项目:
@@ -21,7 +24,10 @@ get create project
 // 在现有项目中生成所选结构:
 get init
 
-// 创建页面:
+// 创建页面：我的
+get create screen:home
+
+// 创建页面：官方
 // (页面包括 controller, view, 和 binding)
 // 注: 你可以随便命名, 例如: `get create page:login`
 get create page:home
