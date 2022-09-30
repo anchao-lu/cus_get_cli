@@ -1,4 +1,3 @@
-import 'package:get_cli/commands/impl/init/flutter/init_anchao_provider.dart';
 import 'package:get_cli/commands/impl/init/flutter/init_anchao_screen.dart';
 
 import '../../../../common/menu/menu.dart';
@@ -9,7 +8,6 @@ import '../../../../core/internationalization.dart';
 import '../../../../core/locales.g.dart';
 import '../../../interface/command.dart';
 import 'init_getxpattern.dart';
-import 'init_katteko.dart';
 
 class InitCommand extends Command {
   @override
@@ -19,9 +17,7 @@ class InitCommand extends Command {
   Future<void> execute() async {
     final menu = Menu([
       'GetX Pattern (by Kauê)',
-      'CLEAN (by Arktekko)',
-      'Anchao Screen (by Anchao)',
-      'Anchao Provider (by Anchao)',
+      'Screen (by Anchao)',
     ], title: 'Which architecture do you want to use?');
     final result = menu.choose();
 
@@ -30,13 +26,7 @@ class InitCommand extends Command {
         await createInitGetxPattern();
         break;
       case 1:
-        await createInitKatekko();
-        break;
-      case 2:
         await createInitAnchaoScreen();
-        break;
-      case 4:
-        await createInitAnchaoProvider();
         break;
     }
 

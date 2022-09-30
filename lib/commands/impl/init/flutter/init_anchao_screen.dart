@@ -1,26 +1,22 @@
 import 'dart:io';
 
 import 'package:get_cli/commands/impl/create/anchao_screen/anchao_screen.dart';
+import 'package:get_cli/samples/impl/anchao/anchao_main.dart';
 
 import '../../../../common/utils/logger/log_utils.dart';
-import '../../../../common/utils/pubspec/pubspec_utils.dart';
 import '../../../../core/internationalization.dart';
 import '../../../../core/locales.g.dart';
 import '../../../../core/structure.dart';
 import '../../../../functions/create/create_list_directory.dart';
 import '../../../../functions/create/create_main.dart';
-import '../../../../samples/impl/getx_pattern/get_main.dart';
-import '../../commads_export.dart';
 import '../../install/install_get.dart';
 
 Future<void> createInitAnchaoScreen() async {
   var canContinue = await createMain();
   if (!canContinue) return;
 
-  var isServerProject = PubspecUtils.isServerProject;
-  if (!isServerProject) {
-    await installGet();
-  }
+  await installGet();
+
   var initialDirs = [
     Directory(Structure.replaceAsExpected(path: 'assets/images/2.0x')),
     Directory(Structure.replaceAsExpected(path: 'assets/images/3.0x')),
@@ -35,14 +31,13 @@ Future<void> createInitAnchaoScreen() async {
     Directory(Structure.replaceAsExpected(path: 'lib/extensions')),
     Directory(Structure.replaceAsExpected(path: 'lib/themes')),
   ];
-
-  GetXMainSample(isServer: isServerProject).create();
-
-  // await Future.wait([
-  //   CreateAnchaoLuScreenCommand().execute(),
-  // ]);
-
   createListDirectory(initialDirs);
+
+  AnchaoMainSample().create();
+
+  await Future.wait([
+    CreateAnchaoScreenCommand().execute(),
+  ]);
 
   LogService.success(Translation(LocaleKeys.sucess_getx_pattern_generated));
 }

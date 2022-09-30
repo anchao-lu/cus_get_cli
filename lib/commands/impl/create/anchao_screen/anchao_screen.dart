@@ -1,6 +1,10 @@
 import 'dart:io';
 
 import 'package:dcli/dcli.dart';
+import 'package:get_cli/functions/routes/anchao_add_route.dart';
+import 'package:get_cli/samples/impl/anchao/anchao_binding.dart';
+import 'package:get_cli/samples/impl/anchao/anchao_controller.dart';
+import 'package:get_cli/samples/impl/anchao/anchao_view.dart';
 import 'package:recase/recase.dart';
 
 import '../../../../common/menu/menu.dart';
@@ -11,19 +15,12 @@ import '../../../../core/internationalization.dart';
 import '../../../../core/locales.g.dart';
 import '../../../../core/structure.dart';
 import '../../../../functions/create/create_single_file.dart';
-import '../../../../functions/routes/get_add_route.dart';
-import '../../../../samples/impl/get_binding.dart';
-import '../../../../samples/impl/get_controller.dart';
-import '../../../../samples/impl/get_view.dart';
 import '../../../interface/command.dart';
 
 /// The command create a Binding and Controller page and view
 class CreateAnchaoScreenCommand extends Command {
   @override
-  String get commandName => 'luscreen';
-
-  @override
-  List<String> get alias => ['module', '-p', '-m'];
+  String get commandName => 'screen';
 
   @override
   Future<void> execute() async {
@@ -33,7 +30,7 @@ class CreateAnchaoScreenCommand extends Command {
     }
     var name = this.name;
     if (name.isEmpty || isProject) {
-      name = 'home';
+      name = 'initial';
     }
     checkForAlreadyExists(name);
   }
@@ -43,7 +40,7 @@ class CreateAnchaoScreenCommand extends Command {
 
   void checkForAlreadyExists(String? name) {
     var newFileModel =
-        Structure.model(name, 'page', true, on: onCommand, folderName: name);
+        Structure.model(name, 'screen', true, on: onCommand, folderName: name);
     var pathSplit = Structure.safeSplitPath(newFileModel.path!);
 
     pathSplit.removeLast();
@@ -71,61 +68,54 @@ class CreateAnchaoScreenCommand extends Command {
       }
     } else {
       Directory(path).createSync(recursive: true);
+      Directory('$path/components').createSync(recursive: true);
       _writeFiles(path, name!, overwrite: false);
     }
   }
 
   void _writeFiles(String path, String name, {bool overwrite = false}) {
-    var isServer = PubspecUtils.isServerProject;
     var extraFolder = PubspecUtils.extraFolder ?? true;
-    var controllerFile = handleFileCreate(
+    print('path: $path');
+    // final path = 'lib/screens';
+    handleFileCreate(
       name,
-      'controller',
+      'screen',
       path,
       extraFolder,
-      ControllerSample(
+      AnchaoControllerSample(
         '',
         name,
-        isServer,
         overwrite: overwrite,
       ),
-      'controllers',
+      '',
     );
-    var controllerDir = Structure.pathToDirImport(controllerFile.path);
+    handleFileCreate(
+      name,
+      'screen',
+      path,
+      extraFolder,
+      AnchaoBindingSample(
+        '',
+        name,
+        overwrite: overwrite,
+      ),
+      '',
+    );
     var viewFile = handleFileCreate(
       name,
-      'view',
+      'screen',
       path,
       extraFolder,
-      GetViewSample(
-        '',
-        '${name.pascalCase}View',
-        '${name.pascalCase}Controller',
-        controllerDir,
-        isServer,
-        overwrite: overwrite,
-      ),
-      'views',
-    );
-    var bindingFile = handleFileCreate(
-      name,
-      'binding',
-      path,
-      extraFolder,
-      BindingSample(
+      AnchaoScreenSample(
         '',
         name,
-        '${name.pascalCase}Binding',
-        controllerDir,
-        isServer,
         overwrite: overwrite,
       ),
-      'bindings',
+      '',
     );
 
-    addRoute(
+    anchaoAddRoute(
       name,
-      Structure.pathToDirImport(bindingFile.path),
       Structure.pathToDirImport(viewFile.path),
     );
     LogService.success(LocaleKeys.sucess_page_create.trArgs([name.pascalCase]));

@@ -9,10 +9,15 @@ import '../logger/log_utils.dart';
 
 class PubDevApi {
   static Future<String?> getLatestVersionFromPackage(String package) async {
+    // 其实是：zh-Hans-CN
     final languageCode = Platform.localeName.split('_')[0];
-    final pubSite = languageCode == 'zh'
-        ? 'https://pub.flutter-io.cn/api/packages/$package'
-        : 'https://pub.dev/api/packages/$package';
+
+    // final pubSite = languageCode == 'zh'
+    //     ? 'https://pub.flutter-io.cn/api/packages/$package'
+    //     : 'https://pub.dev/api/packages/$package';
+    final pubSite =
+        '${Platform.environment['PUB_HOSTED_URL'] ?? 'https://pub.dev'}/api/packages/$package';
+    print('pubSite: $pubSite');
     var uri = Uri.parse(pubSite);
     try {
       var value = await get(uri);

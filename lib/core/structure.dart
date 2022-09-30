@@ -24,14 +24,10 @@ class Structure {
     'controller': replaceAsExpected(path: 'lib/app'),
     'binding': replaceAsExpected(path: 'lib/app'),
     'view': replaceAsExpected(path: 'lib/app/views/'),
-    //artekko files
-    'screen': replaceAsExpected(path: 'lib/presentation'),
-    'controller.binding':
-        replaceAsExpected(path: 'lib/infrastructure/navigation/bindings'),
-    'navigation': replaceAsExpected(
-        path: 'lib/infrastructure/navigation/navigation.dart'),
     //generator files
     'generate_locales': replaceAsExpected(path: 'lib/generated'),
+    // anchao files
+    'screen': replaceAsExpected(path: 'lib/screens'),
   };
 
   static FileModel model(String? name, String command, bool wrapperFolder,

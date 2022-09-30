@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:get_cli/models/file_model.dart';
 import 'package:path/path.dart';
 
 import '../../common/utils/logger/log_utils.dart';
@@ -12,14 +13,15 @@ import '../sorter_imports/sort.dart';
 
 File handleFileCreate(String name, String command, String on, bool extraFolder,
     Sample sample, String folderName,
-    [String sep = '_']) {
+    [String clearCommandPrefix = '', String sep = '_']) {
   folderName = folderName;
   /* if (folderName.isNotEmpty) {
     extraFolder = PubspecUtils.extraFolder ?? extraFolder;
   } */
   final fileModel = Structure.model(name, command, extraFolder,
       on: on, folderName: folderName);
-  var path = '${fileModel.path}$sep${fileModel.commandName}.dart';
+  var path =
+      '${fileModel.path}$sep${fileModel.commandName?.replaceAll(clearCommandPrefix, '')}.dart';
   sample.path = path;
   return sample.create();
 }
