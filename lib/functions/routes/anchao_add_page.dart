@@ -16,9 +16,8 @@ void anchaoAddPage(String name, String viewDir) {
   var path = viewDir;
   var lines = <String>[];
   if (appPagesFile.path.isEmpty) {
-    AnchaoAppPagesSample(initial: name.constantCase)
-        .create(skipFormatter: true);
-    appPagesFile = File(AnchaoAppPagesSample(initial: name.constantCase).path);
+    AnchaoAppPagesSample(initial: name).create(skipFormatter: true);
+    appPagesFile = File(AnchaoAppPagesSample(initial: name).path);
     lines = appPagesFile.readAsLinesSync();
   } else {
     var content = formatterDartFile(appPagesFile.readAsStringSync());
@@ -43,8 +42,7 @@ void anchaoAddPage(String name, String viewDir) {
     var onPageIndex = -1;
     while (pathSplit.isNotEmpty && onPageIndex == -1) {
       onPageIndex = lines.indexWhere(
-          (element) => element
-              .contains('_Paths.${pathSplit.last.snakeCase.toUpperCase()},'),
+          (element) => element.contains('_Paths.${pathSplit.last.snakeCase},'),
           indexRoutes);
 
       pathSplit.removeLast();
@@ -96,7 +94,7 @@ void anchaoAddPage(String name, String viewDir) {
   var nameSnakeCase = name.snakeCase;
   var namePascalCase = name.pascalCase;
   var line = '''${_getTabs(tabEspaces)}GetPage(
-${_getTabs(tabEspaces + 1)}name: $routesOrPath.${nameSnakeCase.toUpperCase()}, 
+${_getTabs(tabEspaces + 1)}name: $routesOrPath.$nameSnakeCase, 
 ${_getTabs(tabEspaces + 1)}page:()=> const ${namePascalCase}Screen(), 
 ${_getTabs(tabEspaces + 1)}binding: ${namePascalCase}Binding(),
 ${_getTabs(tabEspaces)}),''';

@@ -5,11 +5,11 @@ import 'package:get_cli/samples/interface/sample_interface.dart';
 class AnchaoAppPagesSample extends Sample {
   String initial;
   AnchaoAppPagesSample(
-      {String path = 'lib/routes/app_pages.dart', this.initial = 'INITIAL'})
+      {String path = 'lib/routes/app_pages.dart', this.initial = 'initial'})
       : super(path);
   final import = PubspecUtils.getPackageImport;
   String get _initialRoute =>
-      initial.isNotEmpty ? '\nstatic const INITIAL = Routes.$initial;' : '';
+      initial.isNotEmpty ? '\nstatic const initial = Routes.$initial;' : '';
 
   @override
   String get content => '''$import

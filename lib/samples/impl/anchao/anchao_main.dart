@@ -32,7 +32,7 @@ void main() {
   };
 
   runZonedGuarded<void>(
-    () => runApp(${PubspecUtils.projectName?.pascalCase}App()),
+    () => runApp(const ${PubspecUtils.projectName?.pascalCase}App()),
     _reportError,
   );
 }
@@ -50,7 +50,7 @@ class ${PubspecUtils.projectName?.pascalCase}App extends StatelessWidget {
       ],
       supportedLocales: const [
       ],
-      initialRoute: AppPages.INITIAL,
+      initialRoute: AppPages.initial,
       defaultTransition: Transition.native,
       getPages: AppPages.pages,
     );

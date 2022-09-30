@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:get_cli/common/utils/logger/log_utils.dart';
-import 'package:get_cli/common/utils/pubspec/pubspec_utils.dart';
 import 'package:get_cli/core/internationalization.dart';
 import 'package:get_cli/core/locales.g.dart';
 import 'package:get_cli/extensions/string.dart';
@@ -26,7 +25,7 @@ void anchaoAddRoute(String nameRoute, String viewDir) {
     content = formatterDartFile(routesFile.readAsStringSync());
   }
 
-  var declareRoute = 'static const ${nameRoute.snakeCase.toUpperCase()} =';
+  var declareRoute = 'static const ${nameRoute.snakeCase} =';
   var line = "$declareRoute '/${nameRoute.snakeCase}';";
 
   final newPath = line;
@@ -40,10 +39,10 @@ void anchaoAddRoute(String nameRoute, String viewDir) {
     content = content.appendClassContent('_Paths', line);
   }
 
-  final newRoute = "$declareRoute _Paths.${nameRoute.snakeCase.toUpperCase()};";
+  final newRoute = "$declareRoute _Paths.${nameRoute.snakeCase};";
   if (!content.contains(newRoute)) {
     content = content.appendClassContent(
-        'Routes', "$declareRoute _Paths.${nameRoute.snakeCase.toUpperCase()};");
+        'Routes', "$declareRoute _Paths.${nameRoute.snakeCase};");
   }
 
   LogService.success(
