@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'routes/app_pages.dart';
-import 'translations/test_translations.dart';
+import 'translations/${PubspecUtils.projectName?.snakeCase}_translations.dart';
 
 Future<void> _reportError(FlutterErrorDetails details) async {
   if (!kReleaseMode) {
