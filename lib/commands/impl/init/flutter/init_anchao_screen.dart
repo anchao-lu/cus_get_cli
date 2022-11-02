@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:get_cli/commands/impl/create/anchao_screen/anchao_screen.dart';
 import 'package:get_cli/samples/impl/anchao/anchao_main.dart';
+import 'package:get_cli/samples/impl/anchao/anchao_translations.dart';
 
 import '../../../../common/utils/logger/log_utils.dart';
 import '../../../../core/internationalization.dart';
@@ -25,6 +26,7 @@ Future<void> createInitAnchaoScreen() async {
     Directory(Structure.replaceAsExpected(path: 'lib/routes')),
     Directory(Structure.replaceAsExpected(path: 'lib/models')),
     Directory(Structure.replaceAsExpected(path: 'lib/components')),
+    Directory(Structure.replaceAsExpected(path: 'lib/translations')),
     Directory(Structure.replaceAsExpected(path: 'lib/utils')),
     Directory(Structure.replaceAsExpected(path: 'lib/screens')),
     Directory(Structure.replaceAsExpected(path: 'lib/services')),
@@ -34,6 +36,7 @@ Future<void> createInitAnchaoScreen() async {
   createListDirectory(initialDirs);
 
   AnchaoMainSample().create();
+  AnchaoTranslationsSample().create();
 
   await Future.wait([
     CreateAnchaoScreenCommand().execute(),

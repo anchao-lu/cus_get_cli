@@ -4,7 +4,7 @@ import 'package:dcli/dcli.dart';
 import 'package:get_cli/functions/routes/anchao_add_route.dart';
 import 'package:get_cli/samples/impl/anchao/anchao_binding.dart';
 import 'package:get_cli/samples/impl/anchao/anchao_controller.dart';
-import 'package:get_cli/samples/impl/anchao/anchao_view.dart';
+import 'package:get_cli/samples/impl/anchao/anchao_screen.dart';
 import 'package:recase/recase.dart';
 
 import '../../../../common/menu/menu.dart';
@@ -69,6 +69,7 @@ class CreateAnchaoScreenCommand extends Command {
     } else {
       Directory(path).createSync(recursive: true);
       Directory('$path/components').createSync(recursive: true);
+      Directory('$path/models').createSync(recursive: true);
       _writeFiles(path, name!, overwrite: false);
     }
   }

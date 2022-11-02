@@ -13,28 +13,29 @@ import 'package:get/get.dart';
 
 import 'routes/app_pages.dart';
 
-Future<void> _reportError(dynamic error, dynamic stackTrace) async {
-  
-  if (kDebugMode) {
-    // 输出到控制台...
-  } else { 
+Future<void> _reportError(FlutterErrorDetails details) async {
+  if (!kReleaseMode) {
+    FlutterError.presentError(details);
+  } else {
     // 上传服务器
   }
 }
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   FlutterError.onError = (FlutterErrorDetails details) {
-    if (kDebugMode) {
-      FlutterError.dumpErrorToConsole(details);
-    } else {
-      Zone.current.handleUncaughtError(details.exception, details.stack!);
-    }
+    _reportError(details);
   };
 
-  runZonedGuarded<void>(
-    () => runApp(const ${PubspecUtils.projectName?.pascalCase}App()),
-    _reportError,
-  );
+  PlatformDispatcher.instance.onError = (exception, stackTrace) {
+    final details =
+        FlutterErrorDetails(exception: exception, stack: stackTrace);
+    _reportError(details);
+    return true;
+  };
+
+  runApp(const ${PubspecUtils.projectName?.pascalCase}App());
 }
 
 class ${PubspecUtils.projectName?.pascalCase}App extends StatelessWidget {
@@ -46,13 +47,12 @@ class ${PubspecUtils.projectName?.pascalCase}App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
-      ],
-      supportedLocales: const [
-      ],
       initialRoute: AppPages.initial,
       defaultTransition: Transition.native,
       getPages: AppPages.pages,
+      translations: ${PubspecUtils.projectName?.pascalCase}Translations,
+      locale: Get.deviceLocale,
+      fallbackLocale: const Locale('en', 'US'),
     );
   }
 }
