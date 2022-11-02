@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'routes/app_pages.dart';
+import 'translations/test_translations.dart';
 
 Future<void> _reportError(FlutterErrorDetails details) async {
   if (!kReleaseMode) {
@@ -50,7 +51,7 @@ class ${PubspecUtils.projectName?.pascalCase}App extends StatelessWidget {
       initialRoute: AppPages.initial,
       defaultTransition: Transition.native,
       getPages: AppPages.pages,
-      translations: ${PubspecUtils.projectName?.pascalCase}Translations,
+      translations: ${PubspecUtils.projectName?.pascalCase}Translations(),
       locale: Get.deviceLocale,
       fallbackLocale: const Locale('en', 'US'),
     );
